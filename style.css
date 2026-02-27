@@ -51,6 +51,32 @@ header {
   letter-spacing: 0.1em;
 }
 
+/* ── Branding ────────────────────────────────────────── */
+
+.brand {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-left: auto;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+.footer-brand {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.2rem;
+  color: var(--text-dim);
+  letter-spacing: 0.03em;
+  opacity: 0.5;
+}
+
 /* ── Tabs ────────────────────────────────────────────── */
 
 #tabs {
@@ -295,6 +321,81 @@ tr.needed td:first-child { color: var(--text); }
 .still-req { font-weight: 600; }
 tr.done   .still-req { color: var(--done); }
 tr.needed .still-req { color: var(--needed); }
+
+/* ── Section labels ──────────────────────────────────── */
+
+.section-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin: 1.5rem 0 0.75rem;
+}
+
+/* ── What to farm next ───────────────────────────────── */
+
+.farm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.farm-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.farm-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.08);
+}
+
+.farm-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.farm-icon   { font-size: 0.9rem; }
+
+.farm-bench {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-dim);
+}
+
+.farm-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+
+.farm-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+}
+
+.farm-have   { color: var(--text-dim); }
+.farm-needed { color: var(--needed); font-weight: 600; }
+
+.farm-all-done {
+  padding: 1rem;
+  color: var(--done);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
 
 /* ── Coming Soon ─────────────────────────────────────── */
 

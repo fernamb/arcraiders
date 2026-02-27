@@ -94,6 +94,49 @@ function benchHeroHTML(name, icon, stats) {
     </div>`;
 }
 
+// ── What to farm next ─────────────────────────────────
+
+function getFarmNext(limit = 6) {
+  const needed = [];
+  for (const bench of BENCHES) {
+    for (const lvl of bench.levels) {
+      for (const item of lvl.items) {
+        const still = stillRequired(item.qty, item.inv);
+        if (still > 0) needed.push({ name: item.name, bench: bench.name, benchId: bench.id, icon: BENCH_ICONS[bench.id], still, total: item.qty * 2, have: item.inv || 0 });
+      }
+    }
+  }
+  for (const lvl of SCRAPPY) {
+    for (const item of lvl.items) {
+      const still = stillRequired(item.qty, item.inv);
+      if (still > 0) needed.push({ name: item.name, bench: 'Scrappy', benchId: 'scrappy', icon: BENCH_ICONS.scrappy, still, total: item.qty * 2, have: item.inv || 0 });
+    }
+  }
+  return needed.sort((a, b) => a.still - b.still).slice(0, limit);
+}
+
+function renderFarmNext() {
+  const items = getFarmNext();
+  if (items.length === 0) {
+    return `<div class="farm-all-done">All items collected! 🎉</div>`;
+  }
+  const cards = items.map(item => `
+    <div class="farm-card" onclick="setTab('${item.benchId}')">
+      <div class="farm-card-top">
+        <span class="farm-icon">${item.icon}</span>
+        <span class="farm-bench">${item.bench}</span>
+      </div>
+      <div class="farm-name">${item.name}</div>
+      <div class="farm-stats">
+        <span class="farm-have">${item.have} / ${item.total}</span>
+        <span class="farm-needed">need ${item.still}</span>
+      </div>
+    </div>`).join('');
+  return `
+    <div class="section-label">What to Farm Next</div>
+    <div class="farm-grid">${cards}</div>`;
+}
+
 // ── Render functions ──────────────────────────────────
 
 function renderSummary() {
@@ -115,6 +158,8 @@ function renderSummary() {
 
   return `
     <div class="bench-header"><h2>Overview</h2></div>
+    ${renderFarmNext()}
+    <div class="section-label">All Stations</div>
     <div class="summary-grid">${cards.join('')}</div>`;
 }
 
