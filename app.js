@@ -208,8 +208,7 @@ function renderBlueprints() {
       const marker = qty > 0 ? '&#10003;' : '—';
       return `<tr class="${cls}">
         <td>${item.name}</td>
-        <td class="center still-req">${marker}</td>
-        <td class="center">${qty}</td>
+        <td class="center still-req">${qty}</td>
       </tr>`;
     }).join('');
 
@@ -220,8 +219,7 @@ function renderBlueprints() {
           <thead>
             <tr>
               <th>Blueprint</th>
-              <th class="center">Unlocked</th>
-              <th class="center">Copies</th>
+              <th class="center">Inventory</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
