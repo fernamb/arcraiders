@@ -195,30 +195,6 @@ tr.needed td:first-child { color: var(--text); }
 tr.done   .still-req { color: var(--done); }
 tr.needed .still-req { color: var(--needed); }
 
-/* ── Inventory input ─────────────────────────────────── */
-
-input[type="number"] {
-  width: 75px;
-  padding: 0.25rem 0.5rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  color: var(--text);
-  font-family: 'Rajdhani', system-ui, sans-serif;
-  font-size: 0.9rem;
-  text-align: center;
-  -moz-appearance: textfield;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-}
-
-input[type="number"]:focus {
-  outline: none;
-  border-color: var(--accent);
-}
 
 /* ── Summary grid ────────────────────────────────────── */
 

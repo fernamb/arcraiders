@@ -1,28 +1,9 @@
 let currentTab = 'summary';
 
-// ── localStorage ──────────────────────────────────────
+// ── Calculations ──────────────────────────────────────
 
-function getInventory() {
-  try {
-    return JSON.parse(localStorage.getItem('arcraiders_inv')) || {};
-  } catch {
-    return {};
-  }
-}
-
-function saveInventory(inv) {
-  localStorage.setItem('arcraiders_inv', JSON.stringify(inv));
-}
-
-// ── Keys & calculations ───────────────────────────────
-
-function getItemKey(source, level, name) {
-  return `${source}__${level}__${name}`;
-}
-
-function stillRequired(qty, key) {
-  const inv = getInventory();
-  return Math.max(0, qty * 2 - (inv[key] || 0));
+function stillRequired(qty, inv) {
+  return Math.max(0, qty * 2 - (inv || 0));
 }
 
 function benchProgress(bench) {
@@ -30,7 +11,7 @@ function benchProgress(bench) {
   for (const lvl of bench.levels) {
     for (const item of lvl.items) {
       total++;
-      if (stillRequired(item.qty, getItemKey(bench.id, lvl.level, item.name)) === 0) done++;
+      if (stillRequired(item.qty, item.inv) === 0) done++;
     }
   }
   return total > 0 ? Math.round((done / total) * 100) : 100;
@@ -41,7 +22,7 @@ function scrappyProgress() {
   for (const lvl of SCRAPPY) {
     for (const item of lvl.items) {
       total++;
-      if (stillRequired(item.qty, getItemKey('scrappy', lvl.level, item.name)) === 0) done++;
+      if (stillRequired(item.qty, item.inv) === 0) done++;
     }
   }
   return total > 0 ? Math.round((done / total) * 100) : 100;
@@ -65,22 +46,20 @@ function progressBarHTML(pct) {
     <span class="progress-label">${pct}% complete</span>`;
 }
 
-function itemRowsHTML(items, source, level) {
-  const inv = getInventory();
+function itemRowsHTML(items) {
   return items.map(item => {
-    const key    = getItemKey(source, level, item.name);
-    const myInv  = inv[key] || 0;
-    const needed = stillRequired(item.qty, key);
+    const have   = item.inv || 0;
+    const needed = stillRequired(item.qty, item.inv);
     return `<tr class="${needed === 0 ? 'done' : 'needed'}">
       <td>${item.name}</td>
       <td class="center">${item.qty}</td>
-      <td class="center"><input type="number" min="0" value="${myInv}" data-key="${key}" data-qty="${item.qty}" oninput="updateInv(this)"></td>
+      <td class="center">${have}</td>
       <td class="center still-req">${needed === 0 ? '&#10003;' : needed}</td>
     </tr>`;
   }).join('');
 }
 
-function tableHTML(items, source, level) {
+function tableHTML(items) {
   return `<table>
     <thead>
       <tr>
@@ -90,7 +69,7 @@ function tableHTML(items, source, level) {
         <th class="center">Still Required</th>
       </tr>
     </thead>
-    <tbody>${itemRowsHTML(items, source, level)}</tbody>
+    <tbody>${itemRowsHTML(items)}</tbody>
   </table>`;
 }
 
@@ -101,7 +80,7 @@ function renderBench(bench) {
   const levels = bench.levels.map(lvl => `
     <div class="level-section">
       <h3>Level ${lvl.level}</h3>
-      ${tableHTML(lvl.items, bench.id, lvl.level)}
+      ${tableHTML(lvl.items)}
     </div>`).join('');
 
   return `
@@ -123,7 +102,7 @@ function renderScrappy() {
     }
     return `<div class="level-section">
       <h3>Level ${lvl.level} – ${lvl.name}</h3>
-      ${tableHTML(lvl.items, 'scrappy', lvl.level)}
+      ${tableHTML(lvl.items)}
     </div>`;
   }).join('');
 
@@ -178,39 +157,6 @@ function renderContent() {
   }
 }
 
-// ── Inventory update (targeted DOM, no full re-render) ─
-
-function updateInv(input) {
-  const key   = input.dataset.key;
-  const qty   = parseInt(input.dataset.qty, 10);
-  const value = Math.max(0, parseInt(input.value, 10) || 0);
-
-  const inv = getInventory();
-  inv[key]  = value;
-  saveInventory(inv);
-
-  // Update the row
-  const row    = input.closest('tr');
-  const needed = stillRequired(qty, key);
-  row.querySelector('.still-req').innerHTML = needed === 0 ? '&#10003;' : needed;
-  row.classList.toggle('done',   needed === 0);
-  row.classList.toggle('needed', needed > 0);
-
-  // Update the progress bar
-  if (currentTab === 'scrappy') {
-    const pct = scrappyProgress();
-    document.querySelector('.progress-fill').style.width = `${pct}%`;
-    document.querySelector('.progress-label').textContent = `${pct}% complete`;
-  } else {
-    const bench = BENCHES.find(b => b.id === currentTab);
-    if (bench) {
-      const pct = benchProgress(bench);
-      document.querySelector('.progress-fill').style.width = `${pct}%`;
-      document.querySelector('.progress-label').textContent = `${pct}% complete`;
-    }
-  }
-}
-
 // ── Init ──────────────────────────────────────────────
 
 function buildTabs() {
@@ -225,25 +171,5 @@ function buildTabs() {
     .join('');
 }
 
-function seedDefaults() {
-  if (localStorage.getItem('arcraiders_seeded')) return;
-  const inv = {};
-  for (const bench of BENCHES) {
-    for (const lvl of bench.levels) {
-      for (const item of lvl.items) {
-        if (item.inv) inv[getItemKey(bench.id, lvl.level, item.name)] = item.inv;
-      }
-    }
-  }
-  for (const lvl of SCRAPPY) {
-    for (const item of lvl.items) {
-      if (item.inv) inv[getItemKey('scrappy', lvl.level, item.name)] = item.inv;
-    }
-  }
-  saveInventory(inv);
-  localStorage.setItem('arcraiders_seeded', '1');
-}
-
-seedDefaults();
 buildTabs();
 renderContent();
