@@ -225,6 +225,40 @@ tr.needed .still-req { color: var(--needed); }
   margin-bottom: 0.5rem;
 }
 
+/* ── Coming Soon ─────────────────────────────────────── */
+
+.coming-soon {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem 2rem;
+  display: inline-block;
+}
+
+.coming-soon ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.coming-soon li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: var(--text-dim);
+}
+
+.coming-soon li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
 /* ── Ill Nature ──────────────────────────────────────── */
 
 .rat-stage {

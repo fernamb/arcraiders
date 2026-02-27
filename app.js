@@ -134,6 +134,18 @@ function renderSummary() {
     <div class="summary-grid">${cards.join('')}</div>`;
 }
 
+function renderComingSoon() {
+  return `
+    <div class="bench-header"><h2>Coming Soon!</h2></div>
+    <div class="coming-soon">
+      <ul>
+        <li>Blueprint inventory</li>
+        <li>Expedition progress</li>
+        <li>Skill tree recommendations</li>
+      </ul>
+    </div>`;
+}
+
 function renderIllNature() {
   return `
     <div class="bench-header"><h2>Ill Nature</h2></div>
@@ -149,6 +161,8 @@ function renderContent() {
     main.innerHTML = renderSummary();
   } else if (currentTab === 'scrappy') {
     main.innerHTML = renderScrappy();
+  } else if (currentTab === 'coming-soon') {
+    main.innerHTML = renderComingSoon();
   } else if (currentTab === 'ill-nature') {
     main.innerHTML = renderIllNature();
   } else {
@@ -164,7 +178,8 @@ function buildTabs() {
     { id: 'summary',    label: 'Summary' },
     ...BENCHES.map(b => ({ id: b.id, label: b.name })),
     { id: 'scrappy',    label: 'Scrappy' },
-    { id: 'ill-nature', label: 'Ill Nature' },
+    { id: 'coming-soon', label: 'Coming Soon!' },
+    { id: 'ill-nature',  label: 'Ill Nature' },
   ];
   document.getElementById('tabs').innerHTML = tabs
     .map(t => `<button class="tab-btn${t.id === currentTab ? ' active' : ''}" data-tab="${t.id}" onclick="setTab(this.dataset.tab)">${t.label}</button>`)
