@@ -133,7 +133,7 @@ function renderFarmNext() {
       </div>
     </div>`).join('');
   return `
-    <div class="section-label">What to Farm Next</div>
+    <div class="section-label">What to Grip Up Next</div>
     <div class="farm-grid">${cards}</div>`;
 }
 
@@ -158,9 +158,9 @@ function renderSummary() {
 
   return `
     <div class="bench-header"><h2>Overview</h2></div>
-    ${renderFarmNext()}
     <div class="section-label">All Stations</div>
-    <div class="summary-grid">${cards.join('')}</div>`;
+    <div class="summary-grid">${cards.join('')}</div>
+    ${renderFarmNext()}`;
 }
 
 function renderBench(bench) {
