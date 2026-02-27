@@ -166,7 +166,7 @@ function renderSummary() {
 function renderBench(bench) {
   const stats  = getStats(bench.levels);
   const levels = bench.levels.map(lvl => `
-    <div class="level-section">
+    <div class="level-section level-${lvl.level}">
       <h3>Level ${lvl.level}</h3>
       ${tableHTML(lvl.items)}
     </div>`).join('');
@@ -180,12 +180,12 @@ function renderScrappy() {
   const stats  = getStats(SCRAPPY);
   const levels = SCRAPPY.map(lvl => {
     if (lvl.items.length === 0) {
-      return `<div class="level-section">
+      return `<div class="level-section level-${lvl.level}">
         <h3>Level ${lvl.level} – ${lvl.name}</h3>
         <p class="note">${lvl.note}</p>
       </div>`;
     }
-    return `<div class="level-section">
+    return `<div class="level-section level-${lvl.level}">
       <h3>Level ${lvl.level} – ${lvl.name}</h3>
       ${tableHTML(lvl.items)}
     </div>`;
