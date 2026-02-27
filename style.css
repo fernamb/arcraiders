@@ -56,30 +56,6 @@ header {
   letter-spacing: 0.1em;
 }
 
-.player-toggle {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.player-toggle button {
-  padding: 0.35rem 1rem;
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  font-family: 'Rajdhani', system-ui, sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
-}
-
-.player-toggle button.active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-bg);
-}
 
 /* ── Tabs ────────────────────────────────────────────── */
 
@@ -271,6 +247,37 @@ input[type="number"]:focus {
   text-transform: uppercase;
   letter-spacing: 0.07em;
   margin-bottom: 0.5rem;
+}
+
+/* ── Ill Nature ──────────────────────────────────────── */
+
+.rat-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+}
+
+.rat-emoji {
+  font-size: 8rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 24px rgba(0, 229, 255, 0.4));
+  animation: ratglow 3s ease-in-out infinite;
+}
+
+.rat-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+@keyframes ratglow {
+  0%, 100% { filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.3)); }
+  50%       { filter: drop-shadow(0 0 40px rgba(0, 229, 255, 0.7)); }
 }
 
 /* ── Responsive ──────────────────────────────────────── */

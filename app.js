@@ -1,18 +1,17 @@
-let currentPlayer = 'p1';
-let currentTab    = 'summary';
+let currentTab = 'summary';
 
 // ── localStorage ──────────────────────────────────────
 
-function getInventory(player) {
+function getInventory() {
   try {
-    return JSON.parse(localStorage.getItem(`arcraiders_inv_${player}`)) || {};
+    return JSON.parse(localStorage.getItem('arcraiders_inv')) || {};
   } catch {
     return {};
   }
 }
 
-function saveInventory(player, inv) {
-  localStorage.setItem(`arcraiders_inv_${player}`, JSON.stringify(inv));
+function saveInventory(inv) {
+  localStorage.setItem('arcraiders_inv', JSON.stringify(inv));
 }
 
 // ── Keys & calculations ───────────────────────────────
@@ -22,9 +21,8 @@ function getItemKey(source, level, name) {
 }
 
 function stillRequired(qty, key) {
-  const p1 = getInventory('p1');
-  const p2 = getInventory('p2');
-  return Math.max(0, qty * 2 - (p1[key] || 0) - (p2[key] || 0));
+  const inv = getInventory();
+  return Math.max(0, qty * 2 - (inv[key] || 0));
 }
 
 function benchProgress(bench) {
@@ -49,14 +47,7 @@ function scrappyProgress() {
   return total > 0 ? Math.round((done / total) * 100) : 100;
 }
 
-// ── Player / tab switching ────────────────────────────
-
-function setPlayer(player) {
-  currentPlayer = player;
-  document.getElementById('btn-p1').classList.toggle('active', player === 'p1');
-  document.getElementById('btn-p2').classList.toggle('active', player === 'p2');
-  renderContent();
-}
+// ── Tab switching ─────────────────────────────────────
 
 function setTab(tabId) {
   currentTab = tabId;
@@ -75,7 +66,7 @@ function progressBarHTML(pct) {
 }
 
 function itemRowsHTML(items, source, level) {
-  const inv = getInventory(currentPlayer);
+  const inv = getInventory();
   return items.map(item => {
     const key    = getItemKey(source, level, item.name);
     const myInv  = inv[key] || 0;
@@ -83,7 +74,7 @@ function itemRowsHTML(items, source, level) {
     return `<tr class="${needed === 0 ? 'done' : 'needed'}">
       <td>${item.name}</td>
       <td class="center">${item.qty}</td>
-      <td class="center"><input type="number" min="0" value="${myInv}" data-key="${key}" data-qty="${item.qty}" onchange="updateInv(this)"></td>
+      <td class="center"><input type="number" min="0" value="${myInv}" data-key="${key}" data-qty="${item.qty}" oninput="updateInv(this)"></td>
       <td class="center still-req">${needed === 0 ? '&#10003;' : needed}</td>
     </tr>`;
   }).join('');
@@ -95,7 +86,7 @@ function tableHTML(items, source, level) {
       <tr>
         <th>Item</th>
         <th class="center">Need (each)</th>
-        <th class="center">My Inventory</th>
+        <th class="center">Have</th>
         <th class="center">Still Required</th>
       </tr>
     </thead>
@@ -164,12 +155,23 @@ function renderSummary() {
     <div class="summary-grid">${cards.join('')}</div>`;
 }
 
+function renderIllNature() {
+  return `
+    <div class="bench-header"><h2>Ill Nature</h2></div>
+    <div class="rat-stage">
+      <div class="rat-emoji">🐀</div>
+      <p class="rat-label">Ill Nature</p>
+    </div>`;
+}
+
 function renderContent() {
   const main = document.getElementById('content');
   if (currentTab === 'summary') {
     main.innerHTML = renderSummary();
   } else if (currentTab === 'scrappy') {
     main.innerHTML = renderScrappy();
+  } else if (currentTab === 'ill-nature') {
+    main.innerHTML = renderIllNature();
   } else {
     const bench = BENCHES.find(b => b.id === currentTab);
     main.innerHTML = bench ? renderBench(bench) : '';
@@ -183,9 +185,9 @@ function updateInv(input) {
   const qty   = parseInt(input.dataset.qty, 10);
   const value = Math.max(0, parseInt(input.value, 10) || 0);
 
-  const inv   = getInventory(currentPlayer);
-  inv[key]    = value;
-  saveInventory(currentPlayer, inv);
+  const inv = getInventory();
+  inv[key]  = value;
+  saveInventory(inv);
 
   // Update the row
   const row    = input.closest('tr');
@@ -194,23 +196,29 @@ function updateInv(input) {
   row.classList.toggle('done',   needed === 0);
   row.classList.toggle('needed', needed > 0);
 
-  // Update the progress bar for the current tab
-  const pct  = currentTab === 'scrappy'
-    ? scrappyProgress()
-    : benchProgress(BENCHES.find(b => b.id === currentTab));
-  const fill  = document.querySelector('.progress-fill');
-  const label = document.querySelector('.progress-label');
-  if (fill)  fill.style.width    = `${pct}%`;
-  if (label) label.textContent   = `${pct}% complete`;
+  // Update the progress bar
+  if (currentTab === 'scrappy') {
+    const pct = scrappyProgress();
+    document.querySelector('.progress-fill').style.width = `${pct}%`;
+    document.querySelector('.progress-label').textContent = `${pct}% complete`;
+  } else {
+    const bench = BENCHES.find(b => b.id === currentTab);
+    if (bench) {
+      const pct = benchProgress(bench);
+      document.querySelector('.progress-fill').style.width = `${pct}%`;
+      document.querySelector('.progress-label').textContent = `${pct}% complete`;
+    }
+  }
 }
 
 // ── Init ──────────────────────────────────────────────
 
 function buildTabs() {
   const tabs = [
-    { id: 'summary',  label: 'Summary' },
+    { id: 'summary',    label: 'Summary' },
     ...BENCHES.map(b => ({ id: b.id, label: b.name })),
-    { id: 'scrappy',  label: 'Scrappy' },
+    { id: 'scrappy',    label: 'Scrappy' },
+    { id: 'ill-nature', label: 'Ill Nature' },
   ];
   document.getElementById('tabs').innerHTML = tabs
     .map(t => `<button class="tab-btn${t.id === currentTab ? ' active' : ''}" data-tab="${t.id}" onclick="setTab(this.dataset.tab)">${t.label}</button>`)
