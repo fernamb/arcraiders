@@ -54,14 +54,14 @@ header {
 /* ── Branding ────────────────────────────────────────── */
 
 .brand {
-  font-family: 'Yellowtail', cursive;
-  font-size: 2.2rem;
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 2.6rem;
   margin-left: auto;
   background: linear-gradient(135deg, #00e5ff 0%, #a855f7 60%, #ec4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.5));
+  filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.6));
 }
 
 footer {
@@ -72,13 +72,13 @@ footer {
 }
 
 .footer-brand {
-  font-family: 'Yellowtail', cursive;
-  font-size: 1.4rem;
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 1.6rem;
   background: linear-gradient(135deg, #00e5ff 0%, #a855f7 60%, #ec4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
 /* ── Tabs ────────────────────────────────────────────── */
