@@ -196,6 +196,40 @@ function renderScrappy() {
     ${levels}`;
 }
 
+function renderBlueprints() {
+  const totalItems = BLUEPRINTS.reduce((sum, cat) => sum + cat.items.length, 0);
+  const haveItems  = BLUEPRINTS.reduce((sum, cat) => sum + cat.items.filter(i => i.have).length, 0);
+  const pct        = totalItems > 0 ? Math.round((haveItems / totalItems) * 100) : 0;
+
+  const categories = BLUEPRINTS.map(cat => {
+    const catHave  = cat.items.filter(i => i.have).length;
+    const badges   = cat.items.map(item => `
+      <span class="bp-badge ${item.have ? 'owned' : ''}">${item.have ? '&#10003; ' : ''}${item.name}</span>
+    `).join('');
+    return `
+      <div class="bp-category">
+        <div class="bp-cat-header">
+          <span class="bp-cat-name">${cat.category}</span>
+          <span class="bp-cat-count">${catHave} / ${cat.items.length}</span>
+        </div>
+        <div class="bp-badges">${badges}</div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="bench-hero">
+      <div class="bench-hero-left">
+        <span class="bench-hero-icon">📋</span>
+        <div>
+          <h2>Blueprint Tracker</h2>
+          <span class="bench-count">${haveItems} / ${totalItems} blueprints unlocked</span>
+        </div>
+      </div>
+      ${progressRingHTML(pct, 'sm')}
+    </div>
+    ${categories}`;
+}
+
 function renderComingSoon() {
   return `
     <div class="bench-header"><h2>Coming Soon!</h2></div>
@@ -221,6 +255,7 @@ function renderContent() {
   const main = document.getElementById('content');
   if      (currentTab === 'summary')     main.innerHTML = renderSummary();
   else if (currentTab === 'scrappy')     main.innerHTML = renderScrappy();
+  else if (currentTab === 'blueprints')  main.innerHTML = renderBlueprints();
   else if (currentTab === 'coming-soon') main.innerHTML = renderComingSoon();
   else if (currentTab === 'ill-nature')  main.innerHTML = renderIllNature();
   else {
@@ -236,6 +271,7 @@ function buildTabs() {
     { id: 'summary',     label: 'Overview' },
     ...BENCHES.map(b => ({ id: b.id, label: b.name })),
     { id: 'scrappy',     label: 'Scrappy' },
+    { id: 'blueprints',  label: 'Blueprints' },
     { id: 'coming-soon', label: 'Coming Soon!' },
     { id: 'ill-nature',  label: 'Ill Nature' },
   ];
