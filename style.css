@@ -409,59 +409,6 @@ tr.needed .still-req { color: var(--needed); }
 
 /* ── Blueprint Tracker ───────────────────────────────── */
 
-.bp-category {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
-
-.bp-cat-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.45rem 1rem;
-  background: var(--bg-level);
-  border-bottom: 1px solid var(--border);
-}
-
-.bp-cat-name {
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-}
-
-.bp-cat-count {
-  font-size: 0.75rem;
-  color: var(--text-dim);
-}
-
-.bp-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-}
-
-.bp-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 3px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  background: var(--bg);
-}
-
-.bp-badge.owned {
-  border-color: var(--done);
-  color: var(--done);
-  background: rgba(63, 185, 80, 0.08);
-}
-
 /* ── Coming Soon ─────────────────────────────────────── */
 
 .coming-soon {

@@ -197,22 +197,35 @@ function renderScrappy() {
 }
 
 function renderBlueprints() {
-  const totalItems = BLUEPRINTS.reduce((sum, cat) => sum + cat.items.length, 0);
-  const haveItems  = BLUEPRINTS.reduce((sum, cat) => sum + cat.items.filter(i => i.have).length, 0);
-  const pct        = totalItems > 0 ? Math.round((haveItems / totalItems) * 100) : 0;
+  const total = BLUEPRINTS.reduce((sum, cat) => sum + cat.items.length, 0);
+  const have  = BLUEPRINTS.reduce((sum, cat) => sum + cat.items.filter(i => i.inv > 0).length, 0);
+  const pct   = total > 0 ? Math.round((have / total) * 100) : 0;
 
   const categories = BLUEPRINTS.map(cat => {
-    const catHave  = cat.items.filter(i => i.have).length;
-    const badges   = cat.items.map(item => `
-      <span class="bp-badge ${item.have ? 'owned' : ''}">${item.have ? '&#10003; ' : ''}${item.name}</span>
-    `).join('');
+    const rows = cat.items.map(item => {
+      const qty    = item.inv || 0;
+      const cls    = qty > 0 ? 'done' : 'needed';
+      const marker = qty > 0 ? '&#10003;' : '—';
+      return `<tr class="${cls}">
+        <td>${item.name}</td>
+        <td class="center still-req">${marker}</td>
+        <td class="center">${qty}</td>
+      </tr>`;
+    }).join('');
+
     return `
-      <div class="bp-category">
-        <div class="bp-cat-header">
-          <span class="bp-cat-name">${cat.category}</span>
-          <span class="bp-cat-count">${catHave} / ${cat.items.length}</span>
-        </div>
-        <div class="bp-badges">${badges}</div>
+      <div class="level-section">
+        <h3>${cat.category}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Blueprint</th>
+              <th class="center">Unlocked</th>
+              <th class="center">Copies</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
       </div>`;
   }).join('');
 
@@ -222,7 +235,7 @@ function renderBlueprints() {
         <span class="bench-hero-icon">📋</span>
         <div>
           <h2>Blueprint Tracker</h2>
-          <span class="bench-count">${haveItems} / ${totalItems} blueprints unlocked</span>
+          <span class="bench-count">${have} / ${total} blueprints unlocked</span>
         </div>
       </div>
       ${progressRingHTML(pct, 'sm')}
