@@ -225,5 +225,25 @@ function buildTabs() {
     .join('');
 }
 
+function seedDefaults() {
+  if (localStorage.getItem('arcraiders_seeded')) return;
+  const inv = {};
+  for (const bench of BENCHES) {
+    for (const lvl of bench.levels) {
+      for (const item of lvl.items) {
+        if (item.inv) inv[getItemKey(bench.id, lvl.level, item.name)] = item.inv;
+      }
+    }
+  }
+  for (const lvl of SCRAPPY) {
+    for (const item of lvl.items) {
+      if (item.inv) inv[getItemKey('scrappy', lvl.level, item.name)] = item.inv;
+    }
+  }
+  saveInventory(inv);
+  localStorage.setItem('arcraiders_seeded', '1');
+}
+
+seedDefaults();
 buildTabs();
 renderContent();
