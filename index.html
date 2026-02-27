@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARC Raiders – Workshop Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="logo-arc">ARC RAIDERS</span>
+      <span class="logo-sub">Workshop Tracker</span>
+    </div>
+    <div class="player-toggle">
+      <button id="btn-p1" class="active" onclick="setPlayer('p1')">Player 1</button>
+      <button id="btn-p2" onclick="setPlayer('p2')">Player 2</button>
+    </div>
+  </header>
+
+  <nav id="tabs"></nav>
+
+  <main id="content"></main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+:root {
+  --bg:         #0d1117;
+  --bg-card:    #161b22;
+  --bg-level:   #21262d;
+  --border:     #30363d;
+  --text:       #e6edf3;
+  --text-dim:   #8b949e;
+  --accent:     #00e5ff;
+  --accent-bg:  rgba(0, 229, 255, 0.08);
+  --done:       #3fb950;
+  --needed:     #f85149;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-size: 16px;
+  min-height: 100vh;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo-arc {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+}
+
+.logo-sub {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.player-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.player-toggle button {
+  padding: 0.35rem 1rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.player-toggle button.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+/* ── Tabs ────────────────────────────────────────────── */
+
+#tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.6rem 1.5rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+  padding: 0.3rem 0.85rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.tab-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+/* ── Content ─────────────────────────────────────────── */
+
+#content {
+  padding: 1.5rem;
+  max-width: 960px;
+}
+
+.bench-header {
+  margin-bottom: 1.25rem;
+}
+
+.bench-header h2 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Progress bar ────────────────────────────────────── */
+
+.progress-bar {
+  height: 5px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.progress-label {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Level sections ──────────────────────────────────── */
+
+.level-section {
+  margin-bottom: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.level-section h3 {
+  padding: 0.45rem 1rem;
+  background: var(--bg-level);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+.note {
+  padding: 0.6rem 1rem;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+/* ── Table ───────────────────────────────────────────── */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 0.4rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+
+th.center { text-align: center; }
+
+td {
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+}
+
+td.center { text-align: center; }
+
+tr:last-child td { border-bottom: none; }
+
+tr.done td:first-child  { color: var(--done); }
+tr.needed td:first-child { color: var(--text); }
+
+.still-req { font-weight: 600; }
+tr.done   .still-req { color: var(--done); }
+tr.needed .still-req { color: var(--needed); }
+
+/* ── Inventory input ─────────────────────────────────── */
+
+input[type="number"] {
+  width: 75px;
+  padding: 0.25rem 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text);
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-size: 0.9rem;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ── Summary grid ────────────────────────────────────── */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.75rem;
+}
+
+.summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.summary-card:hover {
+  border-color: var(--accent);
+}
+
+.summary-card h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+
+.level-section { overflow-x: auto; }
+
+@media (max-width: 600px) {
+  header       { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+  #content     { padding: 1rem; }
+  #tabs        { padding: 0.5rem 1rem; }
+}
