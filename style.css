@@ -54,12 +54,14 @@ header {
 /* ── Branding ────────────────────────────────────────── */
 
 .brand {
-  font-family: 'Pacifico', cursive;
-  font-size: 1.6rem;
-  color: var(--accent);
+  font-family: 'Yellowtail', cursive;
+  font-size: 2.2rem;
   margin-left: auto;
-  letter-spacing: 0.03em;
-  text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+  background: linear-gradient(135deg, #00e5ff 0%, #a855f7 60%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.5));
 }
 
 footer {
@@ -70,11 +72,13 @@ footer {
 }
 
 .footer-brand {
-  font-family: 'Pacifico', cursive;
-  font-size: 1.2rem;
-  color: var(--text-dim);
-  letter-spacing: 0.03em;
-  opacity: 0.5;
+  font-family: 'Yellowtail', cursive;
+  font-size: 1.4rem;
+  background: linear-gradient(135deg, #00e5ff 0%, #a855f7 60%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.4;
 }
 
 /* ── Tabs ────────────────────────────────────────────── */
