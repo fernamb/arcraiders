@@ -10,10 +10,10 @@ const BENCHES = [
       { level: 2, items: [
         { name: 'Synthesized Fuel', qty: 3, inv: 6 },
         { name: 'Crude Explosives', qty: 5, inv: 10 },
-        { name: 'Pop Trigger', qty: 5, inv: 6 },
+        { name: 'Pop Trigger', qty: 5, inv: 12 },
       ]},
       { level: 3, items: [
-        { name: 'Laboratory Reagents', qty: 3, inv: 2 },
+        { name: 'Laboratory Reagents', qty: 3, inv: 6 },
         { name: 'Explosive Compound', qty: 5, inv: 10 },
         { name: 'Rocketeer Driver', qty: 3, inv: 7 },
       ]},
@@ -33,7 +33,7 @@ const BENCHES = [
         { name: 'Hornet Driver', qty: 5, inv: 10 },
       ]},
       { level: 3, items: [
-        { name: 'Industrial Battery', qty: 3, inv: 2 },
+        { name: 'Industrial Battery', qty: 3, inv: 4 },
         { name: 'Advanced Electrical Components', qty: 5, inv: 10 },
         { name: 'Bastion Cell', qty: 6, inv: 12 },
       ]},
@@ -53,9 +53,9 @@ const BENCHES = [
         { name: 'Wasp Driver', qty: 8, inv: 18 },
       ]},
       { level: 3, items: [
-        { name: 'Rusted Gear', qty: 3, inv: 5 },
+        { name: 'Rusted Gear', qty: 3, inv: 6 },
         { name: 'Advanced Mechanical Components', qty: 5, inv: 10 },
-        { name: 'Sentinel Firing Core', qty: 4 },
+        { name: 'Sentinel Firing Core', qty: 4, inv: 6 },
       ]},
     ],
   },
@@ -68,12 +68,12 @@ const BENCHES = [
         { name: 'ARC Alloy', qty: 6, inv: 12 },
       ]},
       { level: 2, items: [
-        { name: 'Cracked Bioscanner', qty: 2, inv: 1 },
+        { name: 'Cracked Bioscanner', qty: 2, inv: 4 },
         { name: 'Durable Cloth', qty: 5, inv: 10 },
-        { name: 'Tick Pod', qty: 8, inv: 3 },
+        { name: 'Tick Pod', qty: 8, inv: 17 },
       ]},
       { level: 3, items: [
-        { name: 'Rusted Shut Medical Kit', qty: 3, inv: 3 },
+        { name: 'Rusted Shut Medical Kit', qty: 3, inv: 4 },
         { name: 'Antiseptic', qty: 8, inv: 17 },
         { name: 'Surveyor Vault', qty: 5, inv: 10 },
       ]},
@@ -85,15 +85,15 @@ const BENCHES = [
     levels: [
       { level: 1, items: [
         { name: 'Metal Parts', qty: 60, inv: 120 },
-        { name: 'ARC Powercell', qty: 5 },
+        { name: 'ARC Powercell', qty: 5, inv: 10 },
       ]},
       { level: 2, items: [
         { name: 'Toaster', qty: 3, inv: 6 },
         { name: 'ARC Motion Core', qty: 5, inv: 10 },
-        { name: 'Fireball Burner', qty: 8, inv: 5 },
+        { name: 'Fireball Burner', qty: 8, inv: 16 },
       ]},
       { level: 3, items: [
-        { name: 'Motor', qty: 3, inv: 1 },
+        { name: 'Motor', qty: 3, inv: 3 },
         { name: 'ARC Circuitry', qty: 10, inv: 20 },
         { name: 'Bombardier Cell', qty: 6, inv: 12 },
       ]},
@@ -108,14 +108,14 @@ const BENCHES = [
         { name: 'ARC Alloy', qty: 6, inv: 12 },
       ]},
       { level: 2, items: [
-        { name: 'Damaged Heat Sink', qty: 2, inv: 3 },
+        { name: 'Damaged Heat Sink', qty: 2, inv: 4 },
         { name: 'Electrical Components', qty: 5, inv: 10 },
         { name: 'Snitch Scanner', qty: 6, inv: 12 },
       ]},
       { level: 3, items: [
-        { name: 'Fried Motherboard', qty: 3, inv: 5 },
+        { name: 'Fried Motherboard', qty: 3, inv: 7 },
         { name: 'Advanced Electrical Components', qty: 5, inv: 6 },
-        { name: 'Leaper Pulse Unit', qty: 4, inv: 7 },
+        { name: 'Leaper Pulse Unit', qty: 4, inv: 8 },
       ]},
     ],
   },
