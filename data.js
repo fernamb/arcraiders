@@ -33,7 +33,7 @@ const BENCHES = [
         { name: 'Hornet Driver', qty: 5, inv: 10 },
       ]},
       { level: 3, items: [
-        { name: 'Industrial Battery', qty: 3, inv: 1 },
+        { name: 'Industrial Battery', qty: 3, inv: 2 },
         { name: 'Advanced Electrical Components', qty: 5, inv: 10 },
         { name: 'Bastion Cell', qty: 6, inv: 12 },
       ]},
@@ -110,7 +110,7 @@ const BENCHES = [
       { level: 2, items: [
         { name: 'Damaged Heat Sink', qty: 2, inv: 3 },
         { name: 'Electrical Components', qty: 5, inv: 10 },
-        { name: 'Snitch Scanner', qty: 6, inv: 11 },
+        { name: 'Snitch Scanner', qty: 6, inv: 12 },
       ]},
       { level: 3, items: [
         { name: 'Fried Motherboard', qty: 3, inv: 5 },
