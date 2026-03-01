@@ -156,6 +156,17 @@ function renderSummary() {
     </div>`;
   });
 
+  const bpTotal = BLUEPRINTS.reduce((sum, cat) => sum + cat.items.length, 0);
+  const bpHave  = BLUEPRINTS.reduce((sum, cat) => sum + cat.items.filter(i => i.inv > 0).length, 0);
+  const bpPct   = bpTotal > 0 ? Math.round((bpHave / bpTotal) * 100) : 0;
+  cards.push(`<div class="summary-card" onclick="setTab('blueprints')">
+      ${progressRingHTML(bpPct, 'lg')}
+      <div class="card-name">
+        <span class="card-icon">📋</span>Blueprints
+      </div>
+      <div class="card-count">${bpHave} / ${bpTotal} unlocked</div>
+    </div>`);
+
   return `
     <div class="bench-header"><h2>Overview</h2></div>
     <div class="section-label">All Stations</div>
