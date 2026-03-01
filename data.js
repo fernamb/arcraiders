@@ -10,7 +10,7 @@ const BENCHES = [
       { level: 2, items: [
         { name: 'Synthesized Fuel', qty: 3, inv: 6 },
         { name: 'Crude Explosives', qty: 5, inv: 10 },
-        { name: 'Pop Trigger', qty: 5 },
+        { name: 'Pop Trigger', qty: 5, inv: 6 },
       ]},
       { level: 3, items: [
         { name: 'Laboratory Reagents', qty: 3, inv: 2 },
@@ -30,7 +30,7 @@ const BENCHES = [
       { level: 2, items: [
         { name: 'Power Cable', qty: 3, inv: 6 },
         { name: 'Electrical Components', qty: 5, inv: 10 },
-        { name: 'Hornet Driver', qty: 5, inv: 4 },
+        { name: 'Hornet Driver', qty: 5, inv: 10 },
       ]},
       { level: 3, items: [
         { name: 'Industrial Battery', qty: 3, inv: 1 },
@@ -50,10 +50,10 @@ const BENCHES = [
       { level: 2, items: [
         { name: 'Rusted Tools', qty: 3, inv: 6 },
         { name: 'Mechanical Components', qty: 5, inv: 10 },
-        { name: 'Wasp Driver', qty: 8, inv: 7 },
+        { name: 'Wasp Driver', qty: 8, inv: 18 },
       ]},
       { level: 3, items: [
-        { name: 'Rusted Gear', qty: 3, inv: 3 },
+        { name: 'Rusted Gear', qty: 3, inv: 5 },
         { name: 'Advanced Mechanical Components', qty: 5, inv: 10 },
         { name: 'Sentinel Firing Core', qty: 4 },
       ]},
@@ -70,7 +70,7 @@ const BENCHES = [
       { level: 2, items: [
         { name: 'Cracked Bioscanner', qty: 2, inv: 1 },
         { name: 'Durable Cloth', qty: 5, inv: 10 },
-        { name: 'Tick Pod', qty: 8 },
+        { name: 'Tick Pod', qty: 8, inv: 3 },
       ]},
       { level: 3, items: [
         { name: 'Rusted Shut Medical Kit', qty: 3, inv: 3 },
@@ -90,12 +90,12 @@ const BENCHES = [
       { level: 2, items: [
         { name: 'Toaster', qty: 3, inv: 6 },
         { name: 'ARC Motion Core', qty: 5, inv: 10 },
-        { name: 'Fireball Burner', qty: 8, inv: 1 },
+        { name: 'Fireball Burner', qty: 8, inv: 5 },
       ]},
       { level: 3, items: [
         { name: 'Motor', qty: 3, inv: 1 },
         { name: 'ARC Circuitry', qty: 10, inv: 20 },
-        { name: 'Bombardier Cell', qty: 6, inv: 10 },
+        { name: 'Bombardier Cell', qty: 6, inv: 12 },
       ]},
     ],
   },
@@ -110,7 +110,7 @@ const BENCHES = [
       { level: 2, items: [
         { name: 'Damaged Heat Sink', qty: 2, inv: 3 },
         { name: 'Electrical Components', qty: 5, inv: 10 },
-        { name: 'Snitch Scanner', qty: 6, inv: 6 },
+        { name: 'Snitch Scanner', qty: 6, inv: 11 },
       ]},
       { level: 3, items: [
         { name: 'Fried Motherboard', qty: 3, inv: 5 },
