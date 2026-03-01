@@ -167,11 +167,70 @@ function renderSummary() {
       <div class="card-count">${bpHave} / ${bpTotal} unlocked</div>
     </div>`);
 
+  const benchSections = BENCHES.map(bench => {
+    const stats  = getStats(bench.levels);
+    const levels = bench.levels.map(lvl => `
+      <div class="level-section level-${lvl.level}">
+        <h3>Level ${lvl.level}</h3>
+        ${tableHTML(lvl.items)}
+      </div>`).join('');
+    return `
+      ${benchHeroHTML(bench.name, BENCH_ICONS[bench.id] || '', stats)}
+      ${levels}`;
+  }).join('');
+
+  const scrappyStats  = getStats(SCRAPPY);
+  const scrappyLevels = SCRAPPY.map(lvl => {
+    if (lvl.items.length === 0) {
+      return `<div class="level-section level-${lvl.level}">
+        <h3>Level ${lvl.level} – ${lvl.name}</h3>
+        <p class="note">${lvl.note}</p>
+      </div>`;
+    }
+    return `<div class="level-section level-${lvl.level}">
+      <h3>Level ${lvl.level} – ${lvl.name}</h3>
+      ${tableHTML(lvl.items)}
+    </div>`;
+  }).join('');
+
+  const bpCategories = BLUEPRINTS.map(cat => {
+    const rows = cat.items.map(item => {
+      const qty    = item.inv || 0;
+      const cls    = qty > 0 ? 'done' : 'needed';
+      return `<tr class="${cls}">
+        <td>${item.name}</td>
+        <td class="center still-req">${qty > 0 ? '&#10003;' : '—'}</td>
+      </tr>`;
+    }).join('');
+    return `
+      <div class="level-section">
+        <h3>${cat.category}</h3>
+        <table>
+          <thead><tr><th>Blueprint</th><th class="center">Inventory</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }).join('');
+
   return `
     <div class="bench-header"><h2>Overview</h2></div>
     <div class="section-label">All Stations</div>
     <div class="summary-grid">${cards.join('')}</div>
-    ${renderFarmNext()}`;
+    ${renderFarmNext()}
+    ${benchSections}
+    ${benchHeroHTML('Scrappy the Rooster', BENCH_ICONS.scrappy, scrappyStats)}
+    ${scrappyLevels}
+    <div class="bench-hero">
+      <div class="bench-hero-left">
+        <span class="bench-hero-icon">📋</span>
+        <div>
+          <h2>Blueprint Tracker</h2>
+          <span class="bench-count">${bpHave} / ${bpTotal} blueprints unlocked</span>
+        </div>
+      </div>
+      ${progressRingHTML(bpPct, 'sm')}
+    </div>
+    ${bpCategories}`;
 }
 
 function renderBench(bench) {
