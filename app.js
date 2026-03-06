@@ -80,6 +80,21 @@ function tableHTML(items) {
   </table>`;
 }
 
+function simpleTableHTML(items) {
+  return `<table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th class="center">Qty</th>
+      </tr>
+    </thead>
+    <tbody>${items.map(item => `<tr>
+      <td>${item.name}</td>
+      <td class="center">${item.qty}</td>
+    </tr>`).join('')}</tbody>
+  </table>`;
+}
+
 function benchHeroHTML(name, icon, stats) {
   return `
     <div class="bench-hero">
@@ -147,7 +162,7 @@ function renderSummary() {
 
   const cards = items.map(item => {
     const { total, done, pct } = getStats(item.levels);
-    return `<div class="summary-card" onclick="setTab('${item.id}')">
+    return `<div class="summary-card" onclick="setTab('benches-scrappy')">
       ${progressRingHTML(pct, 'lg')}
       <div class="card-name">
         <span class="card-icon">${BENCH_ICONS[item.id] || ''}</span>${item.name}
@@ -311,6 +326,75 @@ function renderBlueprints() {
     ${categories}`;
 }
 
+function renderBenchesScrappy() {
+  const benchSections = BENCHES.map(bench => {
+    const levels = bench.levels.map(lvl => `
+      <div class="level-section level-${lvl.level}">
+        <h3>Level ${lvl.level}</h3>
+        ${simpleTableHTML(lvl.items)}
+      </div>`).join('');
+    return `
+      <div class="bench-hero">
+        <div class="bench-hero-left">
+          <span class="bench-hero-icon">${BENCH_ICONS[bench.id] || ''}</span>
+          <div><h2>${bench.name}</h2></div>
+        </div>
+      </div>
+      ${levels}`;
+  }).join('');
+
+  const scrappyLevels = SCRAPPY.filter(lvl => lvl.items.length > 0).map(lvl => `
+    <div class="level-section level-${lvl.level}">
+      <h3>Level ${lvl.level} – ${lvl.name}</h3>
+      ${simpleTableHTML(lvl.items)}
+    </div>`).join('');
+
+  return `
+    ${benchSections}
+    <div class="bench-hero">
+      <div class="bench-hero-left">
+        <span class="bench-hero-icon">${BENCH_ICONS.scrappy}</span>
+        <div><h2>Scrappy the Rooster</h2></div>
+      </div>
+    </div>
+    ${scrappyLevels}`;
+}
+
+function renderExpedition() {
+  const phases = EXPEDITION.map(phase => {
+    let body;
+    if (phase.items.length > 0) {
+      body = simpleTableHTML(phase.items);
+    } else if (phase.load) {
+      const rows = phase.load.map(l => `<tr>
+        <td>${l.category}</td>
+        <td class="center">${l.value.toLocaleString()} coins</td>
+      </tr>`).join('');
+      body = `<table>
+        <thead><tr><th>Category</th><th class="center">Value Required</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+    } else {
+      body = '';
+    }
+    return `
+      <div class="level-section">
+        <h3>Phase ${phase.phase} – ${phase.name}</h3>
+        <p class="note">${phase.desc}</p>
+        ${body}
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="bench-hero">
+      <div class="bench-hero-left">
+        <span class="bench-hero-icon">🚐</span>
+        <div><h2>Expedition 3</h2></div>
+      </div>
+    </div>
+    ${phases}`;
+}
+
 function renderComingSoon() {
   return `
     <div class="bench-header"><h2>Coming Soon!</h2></div>
@@ -329,32 +413,140 @@ function renderIllNature() {
     <div class="rat-stage">
       <div class="rat-emoji">🐀</div>
       <p class="rat-label">Ill Nature</p>
+    </div>
+
+    <div class="level-section">
+      <h3>A Brief History of Rats</h3>
+      <p class="note">
+        Rats have walked alongside humanity for over 10,000 years — uninvited, unwelcome, and absolutely unbothered.
+        Originating in Asia, the brown rat (<em>Rattus norvegicus</em>) spread across the globe by hitching rides on trade ships,
+        colonising every continent except Antarctica. They were central to the Black Death, as fleas on rats carried the bubonic plague
+        that wiped out roughly a third of Europe's population in the 14th century. Despite this, rats proved invaluable to modern science —
+        the lab rat has been instrumental in nearly every major medical breakthrough of the last century.
+        They are highly intelligent, capable of empathy, and have been trained to detect landmines and tuberculosis.
+        Nature's great survivors. Opportunists. Everywhere you don't want them to be.
+        In street culture, "rat" took on a second meaning — someone who talks when they shouldn't.
+        The history below honours that tradition.
+      </p>
+    </div>
+
+    <div class="level-section">
+      <h3>Top 10 Street & Hip-Hop Snitches</h3>
+
+      <div class="snitch-list">
+
+        <div class="snitch-entry">
+          <div class="snitch-name">1. Tekashi 6ix9ine (Daniel Hernandez)</div>
+          <ul>
+            <li>Cooperated fully with federal prosecutors against his Nine Trey Gangsta Bloods associates in 2019.</li>
+            <li>Testified against Shottie, Mel Murda, and others — named names on the stand with zero hesitation.</li>
+            <li>Got time served. Immediately went back to social media to antagonise the same streets. The audacity.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">2. Alpo Martinez</div>
+          <ul>
+            <li>Harlem drug kingpin and childhood friend of Rich Porter — who he later robbed and murdered.</li>
+            <li>Cooperated with federal authorities in the early 90s, giving up associates to reduce his sentence.</li>
+            <li>Released, relocated, and then shot dead in Harlem in October 2021. The streets remembered.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">3. Nicky Barnes</div>
+          <ul>
+            <li>"Mr. Untouchable" — Harlem heroin kingpin who once appeared on the cover of the New York Times Magazine.</li>
+            <li>After being betrayed by his own crew, he flipped on everyone and entered WITSEC in 1983.</li>
+            <li>Cooperated for years from witness protection, helping the feds dismantle the Council drug organisation.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">4. Frank Lucas</div>
+          <ul>
+            <li>Organised the "Blue Magic" heroin pipeline direct from Southeast Asia, built a Harlem empire.</li>
+            <li>After his 1975 conviction, cooperated extensively with the DEA — gave up over 100 corrupt cops and dealers.</li>
+            <li>His cooperation earned him a drastically reduced sentence. His story was later glorified in <em>American Gangster</em>.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">5. Haitian Jack (Jacques Agnant)</div>
+          <ul>
+            <li>Prominent figure in New York nightlife and street circles, connected to the music industry in the early 90s.</li>
+            <li>Tupac Shakur accused him of setting up the 1994 Quad Studios robbery and cooperating with prosecutors.</li>
+            <li>Widely believed in hip-hop circles to have been working with the feds. Case files partially support it.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">6. Jimmy "Henchman" Rosemond</div>
+          <ul>
+            <li>Music industry manager who worked with Game, Ja Rule, and others — and ran a significant drug operation.</li>
+            <li>After his 2012 conviction, became a federal informant providing information on associates and rivals.</li>
+            <li>Sentenced to life but his cooperation was well documented by those he gave up.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">7. Zip (Roland Martin)</div>
+          <ul>
+            <li>Close associate and right-hand man of Alpo Martinez in the DC and Harlem drug trade.</li>
+            <li>Cooperated with federal authorities, corroborating testimony against members of their network.</li>
+            <li>In the street code, cooperating while your co-defendants do time is a cardinal sin. Zip did exactly that.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">8. Fat Cat Nichols (Lorenzo Nichols)</div>
+          <ul>
+            <li>Powerful Queens drug lord in the 80s whose organisation ran South Jamaica with an iron grip.</li>
+            <li>Eventually cooperated with federal authorities to reduce his sentence after multiple convictions.</li>
+            <li>His crew had murdered a corrections officer — cooperation was the only card he had left to play.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">9. Freeway Ricky Ross</div>
+          <ul>
+            <li>Built one of the largest crack cocaine empires in LA history during the 1980s, moving hundreds of millions.</li>
+            <li>Cooperated with authorities after his 1996 conviction to reduce a life sentence — named associates and suppliers.</li>
+            <li>Later became a public figure, but the streets never forgot how the sentence got knocked down.</li>
+          </ul>
+        </div>
+
+        <div class="snitch-entry">
+          <div class="snitch-name">10. Henry Hill</div>
+          <ul>
+            <li>Half-Irish, half-Sicilian mob associate with the Lucchese family — ran drugs, hijackings, and point-shaving schemes.</li>
+            <li>Turned FBI informant in 1980, putting away Jimmy Burke, Paul Vario, and dozens of others.</li>
+            <li>Entered witness protection, then blew his cover so many times they eventually cut him loose. His life became <em>Goodfellas</em>.</li>
+          </ul>
+        </div>
+
+      </div>
     </div>`;
 }
 
 function renderContent() {
   const main = document.getElementById('content');
-  if      (currentTab === 'summary')     main.innerHTML = renderSummary();
-  else if (currentTab === 'scrappy')     main.innerHTML = renderScrappy();
-  else if (currentTab === 'blueprints')  main.innerHTML = renderBlueprints();
-  else if (currentTab === 'coming-soon') main.innerHTML = renderComingSoon();
-  else if (currentTab === 'ill-nature')  main.innerHTML = renderIllNature();
-  else {
-    const bench = BENCHES.find(b => b.id === currentTab);
-    main.innerHTML = bench ? renderBench(bench) : '';
-  }
+  if      (currentTab === 'summary')         main.innerHTML = renderSummary();
+  else if (currentTab === 'benches-scrappy') main.innerHTML = renderBenchesScrappy();
+  else if (currentTab === 'blueprints')      main.innerHTML = renderBlueprints();
+  else if (currentTab === 'expedition')      main.innerHTML = renderExpedition();
+  else if (currentTab === 'ill-nature')      main.innerHTML = renderIllNature();
 }
 
 // ── Init ──────────────────────────────────────────────
 
 function buildTabs() {
   const tabs = [
-    { id: 'summary',     label: 'Overview' },
-    ...BENCHES.map(b => ({ id: b.id, label: b.name })),
-    { id: 'scrappy',     label: 'Scrappy' },
-    { id: 'blueprints',  label: 'Blueprints' },
-    { id: 'coming-soon', label: 'Coming Soon!' },
-    { id: 'ill-nature',  label: 'Ill Nature' },
+    { id: 'summary',         label: 'Overview' },
+    { id: 'benches-scrappy', label: 'Benches & Scrappy' },
+    { id: 'blueprints',      label: 'Blueprints' },
+    { id: 'expedition',      label: 'Expedition' },
+    { id: 'ill-nature',      label: 'Ill Nature' },
   ];
   document.getElementById('tabs').innerHTML = tabs
     .map(t => `<button class="tab-btn${t.id === currentTab ? ' active' : ''}" data-tab="${t.id}" onclick="setTab(this.dataset.tab)">${t.label}</button>`)

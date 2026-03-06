@@ -473,6 +473,52 @@ tr.needed .still-req { color: var(--needed); }
   50%       { filter: drop-shadow(0 0 40px rgba(0, 229, 255, 0.7)); }
 }
 
+/* ── Snitch List ─────────────────────────────────────── */
+
+.snitch-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.snitch-entry {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+}
+
+.snitch-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+}
+
+.snitch-entry ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.snitch-entry li {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.snitch-entry li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--border);
+}
+
 /* ── Responsive ──────────────────────────────────────── */
 
 @media (max-width: 600px) {

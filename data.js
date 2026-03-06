@@ -283,3 +283,68 @@ const BLUEPRINTS = [
     ],
   },
 ];
+
+const EXPEDITION = [
+  {
+    phase: 1,
+    name: 'Foundation',
+    desc: 'Building the base structure and frame of the caravan',
+    items: [
+      { name: 'Metal Parts', qty: 150 },
+      { name: 'Chemicals', qty: 100 },
+      { name: 'ARC Alloy', qty: 80 },
+      { name: 'Steel Spring', qty: 15 },
+    ],
+  },
+  {
+    phase: 2,
+    name: 'Core Systems',
+    desc: 'Connecting wiring, ventilation, and essential power systems',
+    items: [
+      { name: 'Durable Cloth', qty: 30 },
+      { name: 'Wires', qty: 25 },
+      { name: 'Electrical Components', qty: 20 },
+      { name: 'Industrial Charger', qty: 3 },
+    ],
+  },
+  {
+    phase: 3,
+    name: 'Framework',
+    desc: 'Building walls and roof, installing core systems, and defining the interior layout',
+    items: [
+      { name: 'Coffee Pot', qty: 1 },
+      { name: 'Battery', qty: 25 },
+      { name: 'Firefly Burner', qty: 5 },
+      { name: 'Exodus Modules', qty: 1 },
+    ],
+  },
+  {
+    phase: 4,
+    name: 'Outfitting',
+    desc: 'Adding storage, workbenches, utilities, and personal touches',
+    items: [
+      { name: 'Broken Guidance System', qty: 1 },
+      { name: 'Advanced Electrical Components', qty: 5 },
+      { name: 'Breathtaking Snow Globe', qty: 3 },
+      { name: 'Bombardier Cell', qty: 2 },
+    ],
+  },
+  {
+    phase: 5,
+    name: 'Load Stage',
+    desc: 'Loading the caravan with vital supplies by value',
+    items: [],
+    load: [
+      { category: 'Combat Items', value: 200000 },
+      { category: 'Survival Items', value: 100000 },
+      { category: 'Provisions', value: 150000 },
+      { category: 'Materials', value: 300000 },
+    ],
+  },
+  {
+    phase: 6,
+    name: 'Departure',
+    desc: 'Unload stash worth 3,000,000 coins to depart.',
+    items: [],
+  },
+];
